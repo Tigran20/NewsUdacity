@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
@@ -39,4 +42,5 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         return rootView;
     }
+
 }

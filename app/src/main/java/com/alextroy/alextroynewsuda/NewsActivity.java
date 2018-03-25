@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>>, SwipeRefreshLayout.OnRefreshListener {
+public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private static final String USGS_REQUEST_URL = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
     private static final int NEWS_LOADER_ID = 1;
@@ -26,7 +26,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     private NewsLoader loader;
 
     private TextView emptyStateTextView;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private ListView newsListView;
     private ConnectivityManager connectivityManager;
     private NetworkInfo networkInfo;
@@ -35,10 +34,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_activity);
-
-        swipeRefreshLayout = findViewById(R.id.refresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(true);
 
         newsListView = findViewById(R.id.list);
         emptyStateTextView = findViewById(R.id.empty_view);
@@ -64,7 +59,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             Uri newsUri = Uri.parse(currentNews.getWebUrl());
             Intent newsIntent = new Intent(Intent.ACTION_VIEW, newsUri);
             startActivity(newsIntent);
-
         });
 
         loader = (NewsLoader) getLoaderManager().initLoader(NEWS_LOADER_ID, null, this);
@@ -80,15 +74,15 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-        emptyStateTextView.setText(R.string.no_news);
+        emptyStateTextView.setText(R.string.no_internet_connection);
 
         adapter.clear();
 
         if (data != null && !data.isEmpty()) {
             adapter.addAll(data);
-            swipeRefreshLayout.setRefreshing(false);
         }
-        swipeRefreshLayout.setRefreshing(false);
+
+
     }
 
     @Override
@@ -96,16 +90,4 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter.clear();
     }
 
-    @Override
-    public void onRefresh() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            adapter.clear();
-            loader.forceLoad();
-        } else {
-            adapter.clear();
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
 }

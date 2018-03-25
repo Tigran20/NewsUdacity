@@ -22,6 +22,13 @@ public class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    private static final String RESPONSE = "response";
+    private static final String RESULTS = "results";
+    private static final String WEB_TITLE = "webTitle";
+    private static final String SECTION_NAME = "sectionName";
+    private static final String WEB_PUBLICATION_DATE = "webPublicationDate";
+    private static final String WEB_URL = "webUrl";
+
     private QueryUtils() {
     }
 
@@ -92,17 +99,17 @@ public class QueryUtils {
         List<News> newsArray = new ArrayList<>();
         try {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-            JSONObject response = baseJsonResponse.getJSONObject("response");
-            JSONArray results = response.getJSONArray("results");
+            JSONObject response = baseJsonResponse.getJSONObject(RESPONSE);
+            JSONArray results = response.getJSONArray(RESULTS);
 
             for (int i = 0; i < response.length(); i++) {
 
                 JSONObject currentNews = results.getJSONObject(i);
 
-                String webTitle = currentNews.optString("webTitle");
-                String webSectionName = currentNews.optString("sectionName");
-                String webDate = currentNews.optString("webPublicationDate");
-                String webURL = currentNews.optString("webUrl");
+                String webTitle = currentNews.optString(WEB_TITLE);
+                String webSectionName = currentNews.optString(SECTION_NAME);
+                String webDate = currentNews.optString(WEB_PUBLICATION_DATE);
+                String webURL = currentNews.getString(WEB_URL);
 
                 String webDateFormat;
 
