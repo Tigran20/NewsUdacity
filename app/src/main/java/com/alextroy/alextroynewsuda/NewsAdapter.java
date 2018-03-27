@@ -31,14 +31,17 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView titleTextView = rootView.findViewById(R.id.web_title);
         TextView sectionNameTextView = rootView.findViewById(R.id.web_section_name);
         TextView dateTextView = rootView.findViewById(R.id.web_date);
+        TextView authorTextView = rootView.findViewById(R.id.web_author);
 
         String title = String.valueOf(currentNews.getWebTitle());
         String sectionName = String.valueOf(currentNews.getWebSectionName());
         String date = String.valueOf(currentNews.getWebPublicationDate());
+        String author = String.valueOf(currentNews.getWebAuthor());
 
         titleTextView.setText(title);
         sectionNameTextView.setText(sectionName);
         dateTextView.setText(date);
+        authorTextView.setText(author);
 
         return rootView;
     }

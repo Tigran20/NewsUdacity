@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String USGS_REQUEST_URL = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
+    private static final String USGS_REQUEST_URL = "http://content.guardianapis.com/search?order-by=newest&page-size=10&q=&api-key=test&order-by=newest&show-fields=thumbnail,trailText,byline";
     private static final int NEWS_LOADER_ID = 1;
 
     private NewsAdapter adapter;
@@ -74,15 +74,13 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-        emptyStateTextView.setText(R.string.no_internet_connection);
+        emptyStateTextView.setText(R.string.no_news);
 
         adapter.clear();
 
         if (data != null && !data.isEmpty()) {
             adapter.addAll(data);
         }
-
-
     }
 
     @Override

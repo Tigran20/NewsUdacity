@@ -6,13 +6,22 @@ public class News {
     private String webPublicationDate;
     private String webSectionName;
     private String webUrl;
+    private String webAuthor;
 
-    public News(String webTitle, String webPublicationDate, String webSectionName, String webUrl) {
+    public News(String webTitle, String webPublicationDate, String webSectionName, String webUrl, String webAuthor) {
         this.webTitle = webTitle;
         this.webPublicationDate = webPublicationDate;
         this.webSectionName = webSectionName;
         this.webUrl = webUrl;
+        this.webAuthor = webAuthor;
     }
+
+//    public News(String webTitle, String webPublicationDate, String webSectionName, String webUrl) {
+//        this.webTitle = webTitle;
+//        this.webPublicationDate = webPublicationDate;
+//        this.webSectionName = webSectionName;
+//        this.webUrl = webUrl;
+//    }
 
     public String getWebTitle() {
         return webTitle;
@@ -28,5 +37,9 @@ public class News {
 
     public String getWebUrl() {
         return webUrl;
+    }
+
+    public String getWebAuthor() {
+        return webAuthor;
     }
 }
